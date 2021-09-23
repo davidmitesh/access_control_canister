@@ -1,0 +1,68 @@
+type rolesMap = 
+ record {
+   name: text;
+   "principal": principal;
+   role: Role;
+ };
+type anon_class_13_1 = 
+ service {
+   assign_role: (principal, Role, text) -> (Result_5);
+   callerPrincipal: () -> (Result_4);
+   canAccess: (principal) -> (bool);
+   get_owner: () -> (Result_4);
+   get_role_requests: () -> (Result_3);
+   get_roles: () -> (Result_3);
+   greet: (text) -> (Result_2);
+   my_role: (principal) -> (Result_1);
+   my_role_request: () -> (Result);
+   my_role_request_out: (principal) -> (bool);
+   request_role: (Role, text, principal) -> (bool);
+ };
+type RoleFormatted = 
+ record {
+   name: text;
+   role: Role;
+ };
+type Role = 
+ variant {
+   admin;
+   authorized;
+   owner;
+   unauthorized;
+ };
+type Result_5 = 
+ variant {
+   err: Error;
+   ok;
+ };
+type Result_4 = 
+ variant {
+   err: Error;
+   ok: principal;
+ };
+type Result_3 = 
+ variant {
+   err: Error;
+   ok: vec rolesMap;
+ };
+type Result_2 = 
+ variant {
+   err: Error;
+   ok: text;
+ };
+type Result_1 = 
+ variant {
+   err: Error;
+   ok: Role;
+ };
+type Result = 
+ variant {
+   err: Error;
+   ok: opt RoleFormatted;
+ };
+type Error = 
+ variant {
+   NotAuthorized;
+   NotFound;
+ };
+service : () -> anon_class_13_1
